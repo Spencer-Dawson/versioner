@@ -1,0 +1,45 @@
+<center>
+<!-- selectable environment list -->
+<table>
+    <tr>
+        {% for env in environments %}
+            <td>
+                <a href="">{{ env.env_name}}</a>
+            </td>
+        {% endfor %}
+    </tr>
+</table>
+
+<!-- selectable appname list -->
+<table>
+    <tr>
+        {% for app in app_names %}
+            <td>
+                <a href="">{{ app.app_name}}</a>
+            </td>
+        {% endfor %}
+    </tr>
+</table>
+
+<!-- table of slugversions -->
+<table>
+    <tr>
+        <th>Application</th>
+        {% for items in environments %}
+            <th>{{ items.env_name }}</th>
+        {% endfor %}
+    </tr>
+    {% for apps in app_names %}
+        <tr>
+            <td>{{ apps.app_name }}</td>
+            {% for envs in environments %}
+            {% with slug=apps.app_name|add:envs.env_name %}
+                <td>
+                    {{slug_versions|get_item:slug|get_item:'version'}}
+                </td>
+            {% endwith %}
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+</center>
