@@ -20,12 +20,6 @@ class AppVersionSerializer(serializers.ModelSerializer):
         model = AppVersion
         fields = (['name', 'environment', 'version', 'deploy_date'])
 
-# class AppVersionDeserializer(serializers.Serializer):
-#     # Has to take name and environment as pk instead of string fields
-#     class Meta:
-#         model = AppVersion
-#         fields = (['name', 'environment', 'version'])
-
 class AppNameRelatedField(serializers.RelatedField):
     def display_value(self, instance):
         return instance.app_name

@@ -1,10 +1,59 @@
+<script>
+    function showAllEnvField() {
+        // unhides all table fields for columns of hidden environments
+        var hiddenEnvs = document.getElementsByClassName("envfield");
+        for (var i = 0; i < hiddenEnvs.length; i++) {
+            hiddenEnvs[i].style.display = "table-cell";
+        }
+    }
+
+    function showAllAppRow(){
+        // unhides all table rows for hidden applications
+        var hiddenApps = document.getElementsByClassName("approw");
+        for (var i = 0; i < hiddenApps.length; i++) {
+            hiddenApps[i].style.display = "table-row";
+        }
+    }
+
+    function fieldToggle(classname) {
+        // toggles the visibility of elements with the given id
+        var elements = document.getElementsByClassName(classname);
+        console.log(classname);
+        console.log(elements);
+        for (var i = 0; i < elements.length; i++) {
+            if (elements[i].style.display == "none") {
+                elements[i].style.display = "table-cell";
+            } else {
+                elements[i].style.display = "none";
+            }
+        }
+    }
+
+    function rowToggle(classname) {
+        // toggles the visibility of elements with the given id
+        var elements = document.getElementsByClassName(classname);
+        console.log(classname);
+        console.log(elements);
+        for (var i = 0; i < elements.length; i++) {
+            if (elements[i].style.display == "none") {
+                elements[i].style.display = "table-row";
+            } else {
+                elements[i].style.display = "none";
+            }
+        }
+    }
+
+</script>
 <center>
 <!-- selectable environment list -->
 <table>
     <tr>
+        <td>
+            <button onclick="showAllEnvField()">Show All Environments</button>
+        </td>
         {% for env in environments %}
             <td>
-                <a href="">{{ env.env_name}}</a>
+                <button onclick="fieldToggle('{{ env.env_name }}')">{{ env.env_name }}</button>
             </td>
         {% endfor %}
     </tr>
@@ -13,28 +62,31 @@
 <!-- selectable appname list -->
 <table>
     <tr>
+        <td>
+            <button onclick="showAllAppRow()">Show All Apps</button>
+        </td>
         {% for app in app_names %}
             <td>
-                <a href="">{{ app.app_name}}</a>
+                <button onclick="rowToggle('{{ app.app_name }}')" >{{ app.app_name }}</button>
             </td>
         {% endfor %}
     </tr>
 </table>
 
 <!-- table of slugversions -->
-<table>
+<table border="1">
     <tr>
         <th>Application</th>
         {% for items in environments %}
-            <th>{{ items.env_name }}</th>
+            <th class="{{ items.env_name }} envfield">{{ items.env_name }}</th>
         {% endfor %}
     </tr>
     {% for apps in app_names %}
-        <tr>
+        <tr class="{{ apps.app_name }} approw">
             <td>{{ apps.app_name }}</td>
             {% for envs in environments %}
             {% with slug=apps.app_name|add:envs.env_name %}
-                <td>
+                <td class="{{ envs.env_name }} envfield">
                     {{slug_versions|get_item:slug|get_item:'version'}}
                 </td>
             {% endwith %}
