@@ -14,9 +14,13 @@ Versioner has the ability to pull a json list of the history of deployments for 
 
 Versioner has the ability to pull a list of all the latest deployed versions of an application for all environments to allow someone to audit which versions of an application are deployed to each environment in a loggable fashion
 
+## Deployment
+
+The easiest way to deploy this internal tool is to use the docker_versioner docker image see it's repository for details
+
 ## Design
 
-Versioner is a simple python django web application with API and UI components. This repository is not self-packaged for deployment, but intended to be packaged separately as a docker container. Versioner's resource requirements are trivial, but it will require the usage of some kind of SQL database (even SQLite is fine). Versioner use an admin page to maintain a list of environments and applications to track but is intended to be used as an internal tool and not exposed to the internet
+Versioner is a simple python django web application with API and UI components. This repository is not self-packaged for deployment, but intended to be packaged separately as a docker container. Versioner's resource requirements are trivial, but it will require the usage of some kind of SQL database (even SQLite is fine). Versioner uses an admin page to maintain a list of environments and applications to track but is intended to be used as an internal tool and not exposed to the internet
 
 ## Manual installation, setup, and execution for development purposes
 
